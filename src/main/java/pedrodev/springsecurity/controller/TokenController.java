@@ -47,7 +47,7 @@ public class TokenController {
         var scope = user.get().getRoles()
                 .stream()
                 .map(Role::getName)
-                .collect(Collectors.joining(""));
+                .collect(Collectors.joining(" "));
 
         var claims = JwtClaimsSet.builder()
                 .issuer("self")
@@ -63,7 +63,7 @@ public class TokenController {
     }
 
     @GetMapping("/users")
-    @PreAuthorize("hasAuthority('SCOPE.ADMIN')")
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     public ResponseEntity<List<User>> listUsers(){
         var users = userRepository.findAll();
         return ResponseEntity.ok(users);
